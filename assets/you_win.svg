@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#1a1a2e"/>
+  <text x="200" y="120" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#4ecca3" text-anchor="middle">YOU WIN!</text>
+  <text x="200" y="180" font-family="Arial, sans-serif" font-size="24" fill="#ffd700" text-anchor="middle">★ Congratulations! ★</text>
+  <text x="200" y="240" font-family="Arial, sans-serif" font-size="18" fill="#fff" text-anchor="middle">Press F5 to play again</text>
+</svg>
