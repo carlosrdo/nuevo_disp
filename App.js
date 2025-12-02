@@ -46,6 +46,7 @@ export default function App() {
   const [gameOver, setGameOver] = useState(false);
   const [victory, setVictory] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(true);
 
   const [player, setPlayer] = useState({
     x: GAME_WIDTH / 2,
@@ -437,6 +438,7 @@ export default function App() {
     setLives(3);
     setGameOver(false);
     setVictory(false);
+    setShowInstructions(false);
     setPlayer({
       x: GAME_WIDTH / 2,
       y: GAME_HEIGHT - 50,
@@ -453,6 +455,10 @@ export default function App() {
     setDeadEntities([]);
     firstOpponentKilledRef.current = false;
     spawnOpponent();
+  };
+
+  const handleStartGame = () => {
+    setShowInstructions(false);
   };
 
   const handleTouchStart = (direction) => {
@@ -611,6 +617,28 @@ export default function App() {
             <Text style={styles.gameOverHighScore}>High Score: {highScore}</Text>
             <TouchableOpacity onPress={handleRestart} style={styles.restartButton}>
               <Text style={styles.restartText}>PLAY AGAIN</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
+
+      {/* Instructions Screen */}
+      {showInstructions && (
+        <View style={styles.gameOverScreen}>
+          <View style={styles.gameOverContent}>
+            <Text style={styles.gameOverTitle}>🎮 SHOOTING GAME 🎮</Text>
+            <Text style={styles.instructionsText}>
+              ▪ Use D-pad to move{'\n'}
+              ▪ Press 🔫 to shoot{'\n'}
+              ▪ Destroy all enemies{'\n'}
+              ▪ Defeat the boss to win!{'\n\n'}
+              Power-ups:{'\n'}
+              🟡 Shield - Invincibility{'\n'}
+              🔴 Rapid Fire - Faster shots{'\n'}
+              🟢 Health - Extra life
+            </Text>
+            <TouchableOpacity onPress={handleStartGame} style={styles.restartButton}>
+              <Text style={styles.restartText}>START GAME</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -814,6 +842,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#FFD700',
     marginBottom: 30,
+  },
+  instructionsText: {
+    fontSize: 16,
+    color: '#FFF',
+    lineHeight: 24,
+    marginBottom: 30,
+    textAlign: 'left',
   },
   restartButton: {
     backgroundColor: COLORS.player,
