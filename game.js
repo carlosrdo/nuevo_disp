@@ -392,13 +392,7 @@ class Boss extends Opponent {
         score++;
         updateUI();
         
-        // Check if all bosses are dead
-        setTimeout(() => {
-            const aliveBosses = bosses.filter(b => !b.isDead);
-            if (aliveBosses.length === 0 && player && player.lives > 0) {
-                gameOver(true); // Victory!
-            }
-        }, 100);
+        // Check victory condition will be handled in main game loop
     }
 }
 
@@ -416,8 +410,8 @@ function spawnBoss() {
 }
 
 function updateUI() {
-    scoreLi.innerHTML = `Score: ${score}`;
-    livesLi.innerHTML = `Lives: ${player ? player.lives : 0}`;
+    scoreLi.textContent = `Score: ${score}`;
+    livesLi.textContent = `Lives: ${player ? player.lives : 0}`;
 }
 
 function gameOver(victory) {
@@ -453,31 +447,48 @@ function update() {
     enemyBullets.forEach(bullet => bullet.update());
     enemyBullets = enemyBullets.filter(bullet => !bullet.isOffScreen());
 
-    // Check player bullets hitting opponents
+    // Check player bullets hitting opponents and bosses
+    let bulletsToRemove = new Set();
+    
     playerBullets.forEach((bullet, bulletIndex) => {
         opponents.forEach(opponent => {
             if (!opponent.isDead && bullet.collidesWith(opponent)) {
                 opponent.hit();
-                playerBullets.splice(bulletIndex, 1);
+                bulletsToRemove.add(bulletIndex);
             }
         });
         
         bosses.forEach(boss => {
             if (!boss.isDead && bullet.collidesWith(boss)) {
                 boss.hit();
-                playerBullets.splice(bulletIndex, 1);
+                bulletsToRemove.add(bulletIndex);
             }
         });
     });
+    
+    // Remove bullets that hit targets (iterate backwards to avoid index issues)
+    playerBullets = playerBullets.filter((_, index) => !bulletsToRemove.has(index));
 
     // Check enemy bullets hitting player
+    let enemyBulletsToRemove = new Set();
     if (!player.isDead) {
         enemyBullets.forEach((bullet, bulletIndex) => {
             if (bullet.collidesWith(player)) {
                 player.hit();
-                enemyBullets.splice(bulletIndex, 1);
+                enemyBulletsToRemove.add(bulletIndex);
             }
         });
+    }
+    
+    // Remove enemy bullets that hit player
+    enemyBullets = enemyBullets.filter((_, index) => !enemyBulletsToRemove.has(index));
+
+    // Check victory condition: all bosses dead and boss was spawned
+    if (firstOpponentKilled && bosses.length > 0) {
+        const aliveBosses = bosses.filter(b => !b.isDead);
+        if (aliveBosses.length === 0 && player && player.lives > 0) {
+            gameOver(true); // Victory!
+        }
     }
 
     // Remove dead entities after some time (they become stars)
