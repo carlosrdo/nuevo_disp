@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #1a1a2e;
+    font-family: 'Arial', sans-serif;
+}
+
+#game-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#game-info {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #fff;
+}
+
+#game-info li {
+    background-color: #16213e;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 2px solid #0f3460;
+}
+
+#scoreli {
+    color: #e94560;
+}
+
+#livesli {
+    color: #4ecca3;
+}
+
+#gameCanvas {
+    border: 3px solid #0f3460;
+    border-radius: 8px;
+    background-color: #16213e;
+}
+
+#game-over-screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+}
+
+#game-over-screen img {
+    max-width: 400px;
+    max-height: 300px;
+}
+
+#game-over-screen.hidden {
+    display: none;
+}
+
+#touch-controls {
+    display: none;
+    position: relative;
+    margin-top: 20px;
+    width: 200px;
+    height: 150px;
+}
+
+.touch-btn {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    border: none;
+    border-radius: 50%;
+    background-color: #0f3460;
+    color: #fff;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.touch-btn:active {
+    background-color: #e94560;
+}
+
+#btn-up {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#btn-down {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#btn-left {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+#btn-right {
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+#btn-shoot {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #e94560;
+}
+
+/* Show touch controls on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    #touch-controls {
+        display: block;
+    }
+}
