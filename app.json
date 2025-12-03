@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "Shooting Game",
+    "slug": "shooting-game",
+    "version": "1.0.0",
+    "orientation": "landscape",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#16213e"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "orientation": "landscape"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#16213e"
+      },
+      "edgeToEdgeEnabled": true,
+      "orientation": "landscape"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
